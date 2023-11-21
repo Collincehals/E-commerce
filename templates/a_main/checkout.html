@@ -1,0 +1,189 @@
+{% extends 'a_main/base.html' %}
+{% block head_title %} Checkout {% endblock head_title %}
+{% load static %}
+
+{% block layout %}
+<style>
+    form input {
+        background: rgb(241,240,253);
+        color:black;
+        border:1px solid #ccc;
+    }
+     form input:focus {
+        border:1px solid #398833;
+    }
+    .hidden {
+        display:none;
+    }
+</style>
+   <h3 class="text-center bold text-success"> Checkout - <a style="font-size:18px;color:darkblue;text-align: center;vertical-align: center;" href="{% url 'shopping-cart' %}"> <--Back to Cart</a> </h3>
+    <hr>
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad" style="margin-top:-70px !important">
+        <div class="container">
+            <div class="checkout__form">
+                <h4>Address & Billing Details</h4>
+                <div action="">
+                    <div class="row">
+                       
+                        <div class="col-lg-7 col-md-6">
+                            <form id="form">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="checkout__input">
+                                        <p>First Name<span>*</span></p>
+                                        <input type="text" name="firstname" id="firstname" autocomplete="True" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="checkout__input">
+                                        <p>Email<span>*</span></p>
+                                        <input type="text" name="email" id="email" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                <div class="checkout__input">
+                                    <p>Phone<span>*</span></p>
+                                    <input type="text" name="phone" id="phone" required>
+                                </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Country<span>*</span></p>
+                                        <select name="country" id="country" required>
+                                            <option value="Select Country">Select Country</option>
+                                            <option value="Kenya">Kenya</option>
+                                            <option value="Tanzania">United States</option>
+                                            <option value="Uganda">United States</option>
+                                            <option value="Ethiopia">United States</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Address<span>*</span></p>
+                                        <input type="text" placeholder="Street Address" name="address" id="address" required class="checkout__input__add">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Town/City<span>*</span></p>
+                                        <input type="text" name="town" id="town" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Postcode<span>*</span></p>
+                                        <input type="text" name="postcode" id="postcode" required>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="d-flex align-items-center justify-content-center ">
+                                <button id="addressbtn" class="addressbtn btn btn-success" type="submit">Continue</button>
+                            </div>
+                            
+                        </form>
+                        <div class="hidden" id="paymentDetails">
+                            <div style="display: flex; align-items:center; justify-content:center;flex-direction: column;">
+                            <p class="text-primary text-bold ">PAYMENT OPTIONS</p>
+                            <div class="shoping__continue">
+                                <form  action="">
+                                    <div style='display:flex; align-items: center; justify-content:flex-start; margin-bottom:15px;'>
+                                        <input style="padding:8px 6px;outline:none;border:none;" type="text" name="coupon" placeholder="Coupon code">
+                                        <button style="align-items:center;outline:none;border:none;padding:8px 8px;color:white;background:rgb(72, 114, 72);" type="submit">APPLY</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <button type="submit" id="make-payment" class="site-btn">CONFIRM ORDER</button>
+                            </div>
+                        </div>
+                        </div>
+                       
+                        <div class="col-lg-5 col-md-6">
+                            <div class="checkout__order">
+                                <h4>Your Order</h4>
+                                <div class="checkout__order__products">Products <span>Total</span></div>
+                                <ul>
+                                    {% for item in items %}
+                                    <li>{{ item.product.name }}<span>KShs.{{item.get_total|floatformat:2}}</span></li>
+                                    {% endfor %}
+                                </ul>
+                                <div class="checkout__order__subtotal">Subtotal <span>KShs.{{order.get_cart_total|floatformat:2}}</span></div>
+                                <div class="checkout__order__subtotal">V.A.T <span>KShs.{{ order.vat|floatformat:2 }}</span></div>
+                                <div class="checkout__order__subtotal">Shipping Fee<span>KShs.0</span></div>
+                                <div class="checkout__order__total">Total <span>KShs.{{order.get_order_total|floatformat:2}}</span></div>
+                                    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        const form = document.getElementById('form');
+        var total = '{{order.get_order_total}}'
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            console.log('Form submitted successfully')
+    
+            document.getElementById("addressbtn").classList.add('hidden');
+            document.getElementById('paymentDetails').classList.remove('hidden');
+        });
+
+
+
+        document.getElementById("make-payment").addEventListener('click', function(e) {
+            submitFormData();
+        })
+
+        function submitFormData() {
+            console.log('Payment button clicked')
+            var formData = new FormData(form);
+           
+            
+            var userFormData = {
+                'firstname':formData.get('firstname'),
+                'email': formData.get('email'),
+                'phone': formData.get('phone'),
+                'total': total
+            }
+            var shippingInfo = {
+                'country': formData.get('country'),
+                'address': formData.get('address'),
+                'town': formData.get('town'),
+                'postcode': formData.get('postcode'),
+            }
+
+            var url = '/process_order/'
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken':csrftoken,
+                },
+                body: JSON.stringify({'form':userFormData, 'shipping':shippingInfo })
+            })
+                .then((response) => response.json())
+
+                .then((data) => {
+                    console.log('Success:', data);
+                    window.location.href="{% url 'homepage' %}"
+             })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('Transaction failed! Try again');
+            });
+
+        }
+    </script>
+    <!-- Checkout Section End -->
+{% endblock %}

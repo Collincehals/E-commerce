@@ -1,0 +1,152 @@
+{% extends 'a_main/base.html' %}
+{% block head_title %} Product-details {% endblock head_title %}
+{% load static %}
+
+{% block layout %}
+    <!-- Product Details Section Begin -->
+    <section class="product-details spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="product__details__pic">
+                        <div class="product__details__pic__item">
+                            <img class="product__details__pic__item--large"
+                                src="{{ product.image.url }}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="product__details__text">
+                        <h3>{{ product.name }}</h3>
+                        <div class="product__details__rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-half-o"></i>
+                            <span>(18 reviews)</span>
+                        </div>
+                        <div class="product__details__price">KShs.{{product.price}}</div>
+                        <p>{{product.description}}</p>
+                        <div class="product__details__quantity">
+                            <div style="display:flex; justify-content: center;align-items: center;gap:15px;">
+                                <a data-product="{{product.id}}" data-action="remove" class="chg-quantity update-cart" href=""><i style="background:rgb(73, 122, 73);padding:8px;border-radius: 5px;color:white;" class="fa-solid fa-minus"></i></a>
+                                <a>{{item_quantity}}</a>
+                                <a data-product="{{product.id}}" data-action="add" class="chg-quantity update-cart" href=""><i style="background:rgb(73, 122, 73);padding:8px;border-radius: 5px;color:white;" class="fa-solid fa-plus"></i></a>
+                            </div>
+                        </div>
+                        <a href="" data-product="{{product.id}}" data-action="add" class="primary-btn add-btn update-cart">ADD TO CARD</a>
+                        <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
+                        <ul>
+                            <li><b>Availability</b> <span>{{product.availability}}</span></li>
+                            <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
+                            <li><b>Weight</b> <span>0.5 kg</span></li>
+                            <li><b>Share on</b>
+                                <div class="share">
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                    <a href="#"><i class="fa fa-instagram"></i></a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="product__details__tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab"
+                                    aria-selected="true">Description</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab"
+                                    aria-selected="false">Specifications</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
+                                    aria-selected="false">Reviews <span>(1)</span></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                <div class="product__details__tab__desc">
+                                    <h6>Description</h6>
+                                    {% if product.description %}
+                                    <p>{{ product.description }}</p>
+                                    {% else %}
+                                    No product description from the seller
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tabs-2" role="tabpanel">
+                                <div class="product__details__tab__desc">
+                                    <h6>Specifications</h6>
+                                    {% if product.specification %}
+                                    <p>{{ product.specifications }}</p>
+                                    {% else %}
+                                    No product specification from the seller
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="tabs-3" role="tabpanel">
+                                <div class="product__details__tab__desc">
+                                    <h6>Product Review</h6>
+                                    {% if review %}
+                                    {% for review in reviews %}
+                                    <div>
+                                        <p>{{ review.rating }}</p>
+                                        <p>{{ review.comment }}</p>
+                                    </div>
+                                    {% endfor %}
+                                    {% else %}
+                                    No reviews for this product yet.
+                                    {% endif %}
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Product Details Section End -->
+
+    <!-- Related Product Section Begin -->
+    <section class="related-product">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title related__product__title">
+                        <h2>Related Products</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for related_product in related_products %}
+                <div class="col-lg-3 col-md-4 col-sm-6 mix"  >
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" data-setbg="{{ related_product.image.url }}">
+                            <ul class="featured__item__pic__hover">
+                                <li><a href=""><i class="fa fa-heart"></i></a></li>
+                                <li><a data-product="{{ related_product.id}}" data-action="add" class="add-btn update-cart" href=""><i class="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="featured__item__text">
+                            <div class="d-flex align-items-center justify-content-center ">
+                                {% for tag in related_product.tags.all %}
+                                <h6 class="p-2 border border-4 mx-2  bg-dark-subtle  "><i class="fa-solid fa-tag text-warning"></i><a href="{% url 'category' tag.slug %}"> {{ tag }}</a></h6>
+                                {% endfor %}
+                            </div>
+                            <h6><a href="#">{{ related_product.name }}</a></h6>
+                            <h5> KShs.{{ related_product.price }}</h5>
+                            <h6 style="padding-top:15px;" ><a style="color:white;padding:5px 15px;background:rgb(72, 104, 72);" href="{% url 'product-details' related_product.id %}">View</a></h6>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- Related Product Section End -->
+{% endblock %}

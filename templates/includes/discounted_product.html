@@ -1,0 +1,20 @@
+<div class="product__discount__item">
+    <div class="product__discount__item__pic set-bg"
+        data-setbg="{{product.image.url}}">
+        <div class="product__discount__percent">-30%</div>
+        <ul class="product__item__pic__hover">
+            <li><a href=""><i class="fa fa-heart"></i></a></li>
+            <li><a data-product="{{product.id}}" data-action="add" class="add-btn update-cart" href=""><i  class="fa fa-shopping-cart"></i></a></li>
+        </ul>
+    </div>
+    <div class="d-flex align-items-center justify-content-center mt-2">
+        {% for tag in product.tags.all %}
+        <h6 class="tag-tab"><i class="fa-solid fa-tag text-warning"></i><a href="{% url 'category' tag.slug %}"> {{ tag }}</a></h6>
+        {% endfor %}
+    </div>
+    <div class="product__discount__item__text">
+        <span>{{product.name}}</span>
+        <div class="product__item__price">${{product.price}} <span>KShs.2300</span></div>
+        <h6 class="view-item"><a style="color:white;" class="view-item-text" href="{% url 'product-details' product.id %}">View</a></h6>
+    </div>
+</div>

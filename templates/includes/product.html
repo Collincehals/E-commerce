@@ -1,0 +1,20 @@
+<div class="col-lg-3 col-md-4 col-sm-6 mix"  >
+    <div class="featured__item">
+        <div class="featured__item__pic set-bg" data-setbg="{{ product.image.url }}">
+            <ul class="featured__item__pic__hover">
+                <li><a href=""><i class="fa fa-heart"></i></a></li>
+                <li><a data-product="{{product.id}}" data-action="add" class="add-btn update-cart" href=""><i class="fa fa-shopping-cart"></i></a></li>
+            </ul> 
+        </div>
+        <div class="featured__item__text">
+            <div class="d-flex align-items-center justify-content-center ">
+                {% for tag in product.tags.all %}
+                <h6 class="tag-tab"><i class="fa-solid fa-tag text-warning"></i><a href="{% url 'category' tag.slug %}"> {{ tag }}</a></h6>
+                {% endfor %}
+            </div>
+            <h6>{{ product.name }}</h6>
+            <h5> KShs.{{ product.price }}</h5>
+            <h6 class="view-item"><a style="color:white;" class="view-item-text" href="{% url 'product-details' product.id %}">View</a></h6>
+        </div>
+    </div>
+</div>
