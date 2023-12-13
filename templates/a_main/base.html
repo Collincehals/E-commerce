@@ -84,8 +84,9 @@
                         <li><a href="{% url 'shopping-cart' %}">Shoping Cart</a></li>
                         <li><a href="{% url 'checkout' %}">Check Out</a></li>
                         <li><a href="{% url 'blog-details' %}">Blog Details</a></li>
-                        {% if user.is_superuser %}
+                        {% if user.is_authenticated %}
                         <li><a href="{% url 'create-product' %}">Create Product</a></li>
+                        <li><a href="{% url 'admin-dashboard' %}">Admin-Dashboard</a></li>
                         {% endif %}
                     </ul>
                 </li>
@@ -164,9 +165,10 @@
                                     <li><a href="{% url 'shopping-cart' %}">Shoping Cart</a></li>
                                     <li><a href="{% url 'checkout' %}">Check Out</a></li>
                                     <li><a href="{% url 'blog-details' %}">Blog Details</a></li>
-                                    {% if user.is_superuser %}
-                                    <li><a href="{% url 'create-product' %}">Blog Details</a></li>
-                                    {% endif %}
+                                   {% if user.is_authenticated %}
+                                    <li><a href="{% url 'create-product' %}">Create Product</a></li>
+                                    <li><a href="{% url 'admin-dashboard' %}">Admin-Dashboard</a></li>
+                                   {% endif %}
                                 </ul>
                             </li>
                             <li><a href="{% url 'blog' %}">Blog</a></li>

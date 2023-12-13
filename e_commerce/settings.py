@@ -12,6 +12,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+"""
+from environ import Env
+env = Env()
+Env.read_env()
+"""
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o1%oclhah#kw1)e=$yntrq*ln0ruir$y_#!19(+(r46bbc6w^m'
+
+SECRET_KEY ='django-insecure-o1%oclhah#kw1)e=$yntrq*ln0ruir$y_#!19(+(r46bbc6w^m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -53,18 +59,6 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
-
-
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
-
-ACCOUNT_SIGNUP_REDIRECT_URL = '/'
-ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
-ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
-
-ACCOUNT_USERNAME_BLACKLIST = ['admin', 'profile','product','cart','model']
-
-LOGIN_REDIRECT_URL = '/'
-LOGOUT_REDIRECT_URL = '/'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -165,3 +159,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+
+ACCOUNT_SIGNUP_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_ON_PASSWORD_CHANGE = True
+ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
+
+ACCOUNT_USERNAME_BLACKLIST = ['admin', 'profile','product','cart','model']
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+

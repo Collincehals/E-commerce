@@ -25,11 +25,11 @@ class Tag(models.Model):
 
 class Product(models.Model):
     tags = models.ManyToManyField(Tag, related_name='products')
+    image = models.ImageField(upload_to='product_images/')
     name = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
     specifications = models.TextField(max_length=1000, blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    image = models.ImageField(upload_to='product_images/')
     availability=models.CharField(max_length=20, choices=[('In Stock', 'In Stock'), ('Out of Stock', 'Out of Stock')])
     stock = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -76,7 +76,8 @@ class Order(models.Model):
     order_id = models.CharField(unique=True, editable=False, default=uuid.uuid4, max_length=10)
     def __str__(self):
         return f"Order #{self.order_id} by {self.customer}"
-    
+    class Meta:
+        ordering = ['-ordered_date']
     @property
     def get_cart_total(self):
         orderitems = self.orderitem_set.all()

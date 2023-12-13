@@ -1,0 +1,12 @@
+{% extends "layouts/forms_layout.html" %}
+
+{% load static %}
+{% block head_title %} Create Product {% endblock head_title %}
+
+{% block content %}
+<form method="POST" enctype="multipart/form-data"> 
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit" class="submitbtn">Create Product</button>
+</form>
+{% endblock %}

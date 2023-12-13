@@ -1,0 +1,44 @@
+{% extends 'a_main/base.html' %}
+{% block head_title %} Admin-Dashboard {% endblock head_title %}
+{% load static %}
+
+{% block layout %}
+<style>
+    td {
+    padding:15px; 
+    border:1px solid darkorange;
+    }
+    th {
+    padding:15px; 
+    border:2px solid darkorange;
+    }
+</style>
+
+<div class="container bg-body-tertiary ">
+    <h4 class="text-center text-success  pb-3">Welcome to the Admin Dashboard where you get to view all the orders placed and much more!</h4>
+    <table style="padding:15px;width:100%;background-color: rgb(241, 240, 254);">
+        <tr>
+            <th>Date Ordered</th>
+            <th>Customer</th>
+            <th>Order Number</th>
+            <th>Total(KShs.)</th>
+            <th>Completed</th>
+            <th>Payment Method</th>
+            <th>Shipping Method</th>
+        </tr>
+        {% for order in orders %}
+       
+        <tr>
+            <td>{{order.ordered_date}}</td>
+            <td>{{order.customer}}</td>
+            <td>{{order.order_id}}</td>
+            <td>{{order.total}}</td>
+            <td>{{order.complete}}</td>
+            <td>{{order.payment_method}}</td>
+            <td>{{order.shipping_method}}</td>
+        </tr>
+       
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

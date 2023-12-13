@@ -102,7 +102,7 @@ def create_product(request):
             form.save_m2m()
             messages.success(request, "Product created successfully')")
             return redirect('homepage')
-    return render(request, 'a_main/post_product.html', {'form': form})
+    return render(request, 'a_main/createproduct.html', {'form': form})
 
 def shopping_cart(request):
     if request.user.is_authenticated:
@@ -191,3 +191,10 @@ def processOrder(request):
     else:
         print("User is not authenticated")
     return JsonResponse('Your Order has been confirmed successfully', safe=False)
+
+
+
+def admin_dashboard(request):
+    orders= Order.objects.exclude(complete=False)
+    return render(request, 'a_main/admin_dashboard.html',{'orders':orders})
+    
