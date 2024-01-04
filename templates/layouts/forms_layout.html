@@ -1,8 +1,14 @@
-{% extends 'a_main/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
 {% block layout %}
 <style>
+    body {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        background:rgba(75, 75, 75, 0.9);
+    }
     * {
         box-sizing: border-box;
         outline:none;
@@ -13,68 +19,69 @@
         list-style-type: none;
     }
     h1 {
-        font-size:30px;
+        font-size:3rem;
         font-weight: bold;
         color:darkblue;
         text-align:  center;
-        padding-bottom:20px;
+        padding-bottom:2rem;
     }
 
-/*---*/
-.form-card {
-        max-width:550px;
+    .form-card {
+        max-width:55rem;
+        font-size: 1.6rem;
         width:100%;
-        margin:10px auto;
+        margin:5rem auto;
+        margin-top:8rem;
         margin-bottom: 30px !important;
-        padding:20px;
+        padding:2rem;
         background:rgb(241,240,253);
-        border-radius:8px;
-        border:.5px solid #ccc;
-        box-shadow:0 0 5px 0 rgba(0,0,0,.3);
+        border-radius:.8rem;
+        border:.05rem solid #ccc;
+        box-shadow:0 0 .05rem 0 rgba(0,0,0,.3);
     }
 
     button {
-            padding:10px 15px;
-            font-size:14px;
-            font-weight:bold;
-            color:#fff;
-            border:none;
-            border-radius:5px;
-            cursor:pointer;
-            background:darkblue;
-            margin:5px auto;
-            text-decoration:none;
+        padding:1rem 1.5rem;
+        font-size:1.5rem;
+        font-weight:bold;
+        color:#fff;
+        border:none;
+        border-radius:.5rem;
+        cursor:pointer;
+        background:darkblue;
+        margin:.5rem auto;
+        text-decoration:none;
         }        
         button:hover {
-            box-shadow: 0 0 0 1px rgb(49, 100, 49);
-            transition:scale(1.1);
-            background-color:rgb(49, 100, 49);
+        box-shadow: 0 0 0 .01rem, rgb(49, 100, 49);
+        transition:scale(1.1);
+        background-color:rgb(49, 100, 49);
         }
 
         .submitbtn {
-            padding:10px 15px;
-            font-size:14px;
-            font-weight:bold;
-            color:#fff;
-            border:none;
-            border-radius:5px;
-            cursor:pointer;
-            background:darkblue;
-            margin:5px auto;
-            text-decoration:none;
+        padding:1rem 1.5rem;
+        font-size:1.5rem;
+        font-weight:bold;
+        color:#fff;
+        border:none;
+        border-radius:.5rem;
+        cursor:pointer;
+        background:darkblue;
+        margin:.5rem auto;
+        text-decoration:none;
         }
         .submitbtn:hover {
-            box-shadow: 0 0 0 1px rgb(49, 100, 49);
-            transition:scale(1.1);
-            background-color:rgb(49, 100, 49);
+        box-shadow: 0 0 0 0.1rem rgb(49, 100, 49);
+        transition:scale(1.1);
+        background-color:rgb(49, 100, 49);
         }
       
         /* MORE DJANGO-ALLAUTH FORM STYLING*/
     
         form p {
-            margin-bottom:1rem;
-            display:flex;
-            align-items:center;
+        margin-bottom:1rem;
+        display:flex;
+        align-items:center;
         }
 
         form p label {
@@ -82,10 +89,12 @@
         }
 
         label {
-            margin: 6px 0 3px;
+            margin: 0.6rem 0 .3rem;
+            font-size: 1.6rem;
         }
         input, textarea {
             width: 100%;
+            font-size: 1.6rem;
         }
         input[type="file"], select {
             background-color: none;
@@ -110,7 +119,7 @@
         }
 
         .textarea:focus, textarea:focus, input:focus {
-            border:.2px solid rgba(23, 65, 215, 0.5);
+            border:.02rem solid rgba(23, 65, 215, 0.5);
         }
         
         .errorlist li {
@@ -127,12 +136,12 @@
         }
         #id_tags div {
             display:inline-block;
-            gap:20px; 
+            gap:2rem; 
         }
         #id_tags div label {
             border-radius: 9999px;
             padding: 0.5rem 1rem;
-            border: 1px solid #ccc;
+            border: .1rem solid #ccc;
             width: auto;
             cursor: pointer;
             user-select: none;
@@ -143,26 +152,26 @@
         #id_tags label:has(input:checked) {
             background-color:black;
             color: white;
-            border: 1px solid black;
+            border: .1rem solid black;
         }
 
     
         .post-form-title {
-            font-size:28px;
+            font-size:2.8rem;
             font-weight:700;
-            padding-bottom:10px;
+            padding-bottom:1rem;
             text-align: center;
             color:darkblue;
             }
-@media (max-width: 300px) {
-    form p {
-            display:block;
-        }
-}
+    @media (max-width: 300px) {
+        form p {
+                display:block;
+            }
+    }
 </style>
 <div class="form-card">
     {% block content %}
 
-    {% endblock %}
+    {% endblock content %}
 </div>
 {% endblock %}
